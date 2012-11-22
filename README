@@ -1,0 +1,16 @@
+README
+Welcome to the Supertitles program designed by Christine Chapman for Brown University Gilbert & Sullivan.  This program can also be used for a variety of theatre groups needing supertitles.
+
+The program is intended to be used with a projector, and assumes you will be taping over (or in some way obfuscating) all parts of the projection except the central large line with the supertitles.  This is relatively common for theatre groups, so shouldn't pose too much of an issue.
+
+INPUT: The program will prompt for a file that should be a txt extension. Type one line per desired output line and when two lines occur at a given time, type them on the same line with a carrot symbol (^) between them. An example file, Example.txt is included for demonstration purposes as well as the supertitles from a  previous show Patience.txt
+****************
+Features:
+*Adjust maximum character allotment. -  On the welcome screen, adjust the file for a desired number of characters (default max 50 characters per line)
+* Choose a way to advance the supertitles (Default is left/right arrows), choose any key combinations you'd like
+* View the previous and next line for help deciding when to advance the supertitles
+* Mark lines for edits.  As you practice with your supertitles, you may find a few errors but not want to write them all down. Simply mark them during the run and afterwards you'll have the option to download a new txt file with *s next to all the marked lines.  You can also use a marked file and these will remain marked when in use.
+* Blackout-- During the show, problems can happen.  Sometimes the supertitlist messes up, sometimes the actors mess up and the lines do not align with the supertitles. Rather than furiously shuffling through the slides, simply blackout the screen, find your place again and resume.
+* Jump to Beginning/End, next/previous song for convenience 
+* Change font size, depending on how your projector is set up you might want to
+****************
