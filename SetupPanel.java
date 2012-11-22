@@ -307,7 +307,6 @@ public class SetupPanel{
 					line = br.readLine();
 				}
 				
-				//Single Line
 			} else{
 				if(line.length() > maxPerLine)
 				{

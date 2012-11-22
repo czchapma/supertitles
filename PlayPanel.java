@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,11 +26,40 @@ import supertitles.Supertitles.Mode;
 public class PlayPanel{
 	private Supertitles _st;
 	private JPanel _panel;
-	private JLabel _previous, _current, _currBlackout, _next;
+	private JLabel _previous, _current, _currBlackout, _next,_helpMessage;
 	private List<Text> _allText;
 	private int _forwardKey, _backKey,_currIndex;
 	private JButton _marker, _blackout, _jumpFront, _jumpBack,_jumpPrev,_jumpNext,_download,_returnToSetup;
 	private boolean _blackedOut;
+	private String _defaultMessage;
+	
+	private class HoverButton extends JButton{
+		public HoverButton(String text, final String hoverMessage){
+			super(text);
+			this.addMouseListener(new MouseListener(){
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					_helpMessage.setText(hoverMessage);
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					_helpMessage.setText(_defaultMessage);
+				}
+
+				@Override
+				public void mousePressed(MouseEvent arg0) {}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {}
+				
+			});
+		}
+	}
 	
 	public PlayPanel(Supertitles s,int forward, int back){
 		_forwardKey = forward;
@@ -51,6 +82,10 @@ public class PlayPanel{
 			_forwardKey = option;
 		else
 			_backKey =option;
+		
+		_defaultMessage = "Forward: " + KeyEvent.getKeyText(_forwardKey) + " Backward: " + KeyEvent.getKeyText(_backKey);
+		_helpMessage.setText(_defaultMessage);
+		_panel.repaint();
 	}
 	
 	
@@ -125,7 +160,7 @@ public class PlayPanel{
 		_panel.add(_next);
 
 		//Marker
-		_marker = new JButton("Mark for edits");
+		_marker = new HoverButton("Mark for edits","You can download a file with all the marks bellow");
 		_marker.setHorizontalAlignment(JButton.CENTER);
 		_marker.addActionListener(new ActionListener(){
 
@@ -146,7 +181,7 @@ public class PlayPanel{
 		_panel.add(_marker);
 		
 		//Blackout
-		_blackout = new JButton("Blackout");
+		_blackout = new HoverButton("Blackout","Allows you to find your place by hiding the text from the projection");
 		_blackout.addActionListener(new ActionListener(){
 
 			@Override
@@ -169,7 +204,7 @@ public class PlayPanel{
 		_panel.add(_blackout);
 		
 		//Jump to beginning button
-		_jumpFront = new JButton("Go To Beginning");
+		_jumpFront = new HoverButton("Go To Beginning","Jump to the beginning of the show");
 		_jumpFront.addActionListener(new ActionListener(){
 
 			@Override
@@ -184,7 +219,7 @@ public class PlayPanel{
 		
 		
 		//Jump to end button
-		_jumpBack = new JButton("Go To End");
+		_jumpBack = new HoverButton("Go To End","Jump to the end of the show");
 		_jumpBack.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -196,7 +231,7 @@ public class PlayPanel{
 		_panel.add(_jumpBack);
 		
 		//Jump to previous song
-		_jumpPrev = new JButton("Previous Song");
+		_jumpPrev = new HoverButton("Previous Song","Skip to the previous blank line");
 		_jumpPrev.addActionListener(new ActionListener(){
 
 			@Override
@@ -214,7 +249,7 @@ public class PlayPanel{
 		});
 		_panel.add(_jumpPrev);
 		
-		_jumpNext = new JButton("Next Song");
+		_jumpNext = new HoverButton("Next Song","Skip to the next blank line");
 		_jumpNext.addActionListener(new ActionListener(){
 
 			@Override
@@ -232,7 +267,7 @@ public class PlayPanel{
 		});
 		_panel.add(_jumpNext);
 	
-		_download = new JButton("Download Marked File");
+		_download = new HoverButton("Download Marked File","Click to download a file with *s next to all marked lines");
 		_download.addActionListener(new ActionListener(){
 
 			@Override
@@ -245,7 +280,7 @@ public class PlayPanel{
 		_panel.add(_download);
 		
 		//Return to setup
-		_returnToSetup = new JButton("Return to Setup Screen");
+		_returnToSetup = new HoverButton("Return to Setup Screen","Click to return to setup Screen");
 		_returnToSetup.addActionListener(new ActionListener(){
 
 			@Override
@@ -256,6 +291,11 @@ public class PlayPanel{
 			
 		});
 		_panel.add(_returnToSetup);
+		
+		_defaultMessage = "Forward: " + KeyEvent.getKeyText(_forwardKey) + " Backward: " + KeyEvent.getKeyText(_backKey);
+		_helpMessage = new JLabel(_defaultMessage);
+		_helpMessage.setForeground(Color.white);
+		_panel.add(_helpMessage);
 		
 		_st.add(_panel);
 		_panel.revalidate();
